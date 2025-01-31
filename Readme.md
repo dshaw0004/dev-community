@@ -14,6 +14,7 @@ You can download the beta version from my [app store](https://appbucket.vercel.a
 
 - It can serve latest posts from dev.to in a very ugly interface. 
 - User can click on any post to read it.
+- Post can be shared from this app.
 - more will be added in future version.
 
 ## ToDo
