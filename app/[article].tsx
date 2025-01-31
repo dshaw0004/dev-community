@@ -96,10 +96,10 @@ export default function Article(){
     else {
         return (
             <ScrollView>
-                <View style={styles.imageContainer}>
+                {article.cover_image === null ? <View style={{height: 16}}></View> : <View style={styles.imageContainer}>
 
                     <Image placeholder={{blurhash}} source={{uri: article.cover_image}} style={styles.image} contentFit='contain'/>
-                </View>
+                </View>}
                 <View style={{paddingInline: 16}}>
                     <Text variant={"titleLarge"} style={{fontWeight: 'bold'}}>{article?.title}</Text>
                     <Text variant={"bodySmall"}>tags: {article.tag_list}</Text>

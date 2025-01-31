@@ -79,7 +79,7 @@ function Art({article}: {article: Article}){
                         )
                     }}
                     >
-                    <Card.Cover source={{uri: article.cover_image}} style={{borderBottomWidth: 2, borderColor: 'grey'}}/>
+                    {article.cover_image === null ? <View style={{height: 16}}></View> : <Card.Cover source={{uri: article.cover_image}} style={{borderBottomWidth: 2, borderColor: 'grey'}}/>}
                     <Card.Content>
                         <Text variant="titleLarge" style={{fontWeight: "bold"}}>{article.title}</Text>
                         <Text variant="bodyMedium">{article.description}</Text>
@@ -135,12 +135,7 @@ export default function App(){
         </View>
         ) : null;
     };
-    // <ScrollView
-    // refreshControl={
-        //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        //   }
-        //   onScroll={handleScroll} scrollEventThrottle={16}
-        // >
+    
         return (
             <FlatList 
                 data={articles}
