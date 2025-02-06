@@ -1,13 +1,14 @@
 {
   "name": "dev-community",
   "main": "expo-router/entry",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "build": "eas build -p android --profile preview"
   },
   "jest": {
     "preset": "jest-expo"
