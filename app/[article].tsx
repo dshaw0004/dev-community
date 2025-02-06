@@ -1,5 +1,5 @@
 import {Dimensions, ScrollView, StyleSheet, TouchableOpacity, View, Share} from 'react-native';
-import {Text, ActivityIndicator, MD2Colors, Icon} from 'react-native-paper';
+import {Text, ActivityIndicator, MD2Colors, Icon, Avatar} from 'react-native-paper';
 import {useEffect, useState} from 'react';
 import {Image} from 'expo-image'
 import { useLocalSearchParams, useGlobalSearchParams, Link } from 'expo-router';
@@ -96,14 +96,26 @@ export default function Article(){
     else {
         return (
             <ScrollView>
-                <View style={styles.imageContainer}>
+                {article.cover_image === null ? <View style={{height: 16}}></View> : <View style={styles.imageContainer}>
 
                     <Image placeholder={{blurhash}} source={{uri: article.cover_image}} style={styles.image} contentFit='contain'/>
-                </View>
+                </View>}
                 <View style={{paddingInline: 16}}>
-                    <Text variant={"titleLarge"} style={{fontWeight: 'bold'}}>{article?.title}</Text>
-                    <Text variant={"bodySmall"}>tags: {article.tag_list}</Text>
-                    <Text variant={"bodySmall"}>Posted by - {article.user.name} on {article.readable_publish_date}</Text>
+                    <View style={styles.userInfoContainer}>
+                        <View>
+                            <Avatar.Image size={45} source={{uri: article.user.profile_image}}/>
+                        </View>
+                        <View style={{flexGrow: 2}}>
+                            <Text variant={'titleLarge'} style={{fontWeight: 'bold'}}>{article.user.name}</Text>
+                            <Text variant={"bodySmall"}>Posted on {article.readable_publish_date}</Text>
+                        </View>
+                    </View>
+                    <View >
+                        <Text variant={"headlineLarge"} style={styles.articleTitle}>{article?.title}</Text>
+                        <Text variant={"bodySmall"}>
+                            {article.tag_list.length > 0 && Array.isArray(article.tag_list)? article.tag_list.join(', ') : article.tag_list}
+                        </Text>
+                    </View>
                     <Text style={{textAlign: 'right'}}>
                         <TouchableOpacity onPress={handleShare} hitSlop={36}>
                             <Icon source={'share'} size={25}/>
@@ -126,12 +138,24 @@ const styles = StyleSheet.create({
         width: width,
         height: width * 0.42,
         backgroundColor: '#0553',
+        marginBottom: 10
     },
 
     image: {
         height: width * 0.42,
         width: width,
     },
+    userInfoContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        columnGap: 10,
+    },
+    articleTitle: {
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginBottom: 10
+    }
 })
 const markdownStyles = {
         code_inline: {
