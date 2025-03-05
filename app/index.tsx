@@ -1,4 +1,5 @@
-import {View, ScrollView, StyleSheet, TouchableOpacity, RefreshControl, NativeSyntheticEvent, NativeScrollEvent, FlatList} from 'react-native';
+import {View, ScrollView, StyleSheet, TouchableOpacity, RefreshControl, NativeSyntheticEvent, NativeScrollEvent, FlatList, SafeAreaView} from 'react-native';
+import * as Network from 'expo-network';
 import {Text, ActivityIndicator} from 'react-native-paper';
 import {useEffect, useState, useCallback} from 'react';
 import {sampleArticles} from "@/constants/sampleArticles";
@@ -95,9 +96,16 @@ export default function App(){
     const [articles, setArticles] = useState<Array<Article>>([]);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [refreshing, setRefreshing] = useState(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
 
     const fetchData = useCallback(async () => {
         setRefreshing(true);
+        const networkInfo = await Network.getNetworkStateAsync();
+        if (!networkInfo.isConnected){
+            setRefreshing(false)
+            setErrorMsg('No internet connection');
+            return;
+        }
         try {
           const response = await fetch(`https://dev.to/api/articles/latest?page=${pageNumber}&per_page=50`);
           const result = await response.json() as Article[];
@@ -120,6 +128,7 @@ export default function App(){
 
     useEffect(()=>{
         fetchData();
+
     },[fetchData])
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -135,18 +144,22 @@ export default function App(){
         </View>
         ) : null;
     };
-    
-        return (
-            <FlatList 
-                data={articles}
-                renderItem={({item}:{item: Article}) => (<Art article={item}/>)}
-                keyExtractor={(item: Article) => String(item.id)}
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                onEndReached={()=> {setPageNumber(prev => prev+1)}}
-                onEndReachedThreshold={0.5}
-                ListFooterComponent={renderFooter}
-            />
+    if (errorMsg){
+        return <SafeAreaView style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text variant='headlineLarge' style={{textDecorationLine: 'underline'}}>{errorMsg}</Text>
+        </SafeAreaView>
+    } 
+    return (
+        <FlatList 
+            data={articles}
+            renderItem={({item}:{item: Article}) => (<Art article={item}/>)}
+            keyExtractor={(item: Article) => String(item.id)}
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            onEndReached={()=> {setPageNumber(prev => prev+1)}}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={renderFooter}
+        />
     )
 }
 
