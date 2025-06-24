@@ -18,7 +18,7 @@ export default function About() {
 
       <Card style={styles.card}>
         <Card.Content>
-          <Title style={styles.subtitle}>Disclaimer</Title>
+          <Text variant='bodyLarge' style={styles.subtitle}>Disclaimer</Text>
           <Divider style={styles.divider} />
           <List.Item
             left={props => <List.Icon {...props} icon="information" />}
@@ -35,11 +35,11 @@ export default function About() {
 
       <Card style={styles.card}>
         <Card.Content>
-          <Title style={styles.subtitle}>About DEV Community</Title>
+          <Text variant='bodyLarge' style={styles.subtitle}>About DEV Community</Text>
           <Divider style={styles.divider} />
-          <Paragraph style={styles.paragraph}>
+          <Text variant='bodySmall' style={styles.paragraph}>
             DEV Community is a community of software developers getting together to help one another out. The platform is open source and free to use.
-          </Paragraph>
+          </Text>
         </Card.Content>
       </Card>
     </ScrollView>
