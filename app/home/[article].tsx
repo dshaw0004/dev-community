@@ -1,9 +1,9 @@
-import {Dimensions, ScrollView, StyleSheet, TouchableOpacity, View, Share} from 'react-native';
-import {Text, ActivityIndicator, MD2Colors, Icon, Avatar} from 'react-native-paper';
-import {useEffect, useState} from 'react';
-import {Image} from 'expo-image'
-import { useLocalSearchParams, useGlobalSearchParams, Link } from 'expo-router';
-import {blurhash} from "@/constants/constants";
+import { Dimensions, ScrollView, StyleSheet, TouchableOpacity, View, Share } from 'react-native';
+import { Text, ActivityIndicator, MD2Colors, Icon, Avatar } from 'react-native-paper';
+import { useEffect, useState } from 'react';
+import { Image } from 'expo-image'
+import { useLocalSearchParams, useGlobalSearchParams, Link, useRouter } from 'expo-router';
+import { blurhash } from "@/constants/constants";
 import Markdown from 'react-native-markdown-display';
 import { useNavigation } from 'expo-router';
 
@@ -53,16 +53,17 @@ interface Article {
 
 const { width } = Dimensions.get('window');
 
-export default function Article(){
-    const {username, slug, id} = useGlobalSearchParams();
+export default function Article() {
+    const { username, slug, id } = useGlobalSearchParams();
     const [article, setArticle] = useState<Article>();
     const navigation = useNavigation();
+    const router = useRouter();
     const handleShare = async () => {
-        if(!article){
+        if (!article) {
             alert('Please wait until the post is loaded!')
             return;
         }
-        try{
+        try {
             await Share.share({
                 message: article.url,
                 url: article.url,
@@ -70,15 +71,15 @@ export default function Article(){
             }, {
                 dialogTitle: article.title
             });
-        }catch(e){
+        } catch (e) {
             console.error(e)
             alert('Sharing facility is not available in your device.')
         }
 
     };
-        
 
-    useEffect(()=>{
+
+    useEffect(() => {
         (async () => {
             const req = await fetch(`https://dev.to/api/articles/${id}`);
             const res = await req.json() as Article;
@@ -89,36 +90,41 @@ export default function Article(){
             // console.log(res);
             setArticle(res);
         })()
-    },[])
-    if (!article){
+    }, [])
+    if (!article) {
         return <ActivityIndicator animating={true} color={MD2Colors.red800} />
     }
     else {
         return (
             <ScrollView>
-                {article.cover_image === null ? <View style={{height: 16}}></View> : <View style={styles.imageContainer}>
+                {article.cover_image === null ? <View></View> : <View style={styles.imageContainer}>
 
-                    <Image placeholder={{blurhash}} source={{uri: article.cover_image}} style={styles.image} contentFit='contain'/>
+                    <Image placeholder={{ blurhash }} source={{ uri: article.cover_image }} style={styles.image} contentFit='contain' />
                 </View>}
-                <View style={{paddingInline: 16}}>
+                <View style={{paddingBlock: 16}}>
+                    <TouchableOpacity onPress={()=> router.back()} hitSlop={52}>
+                        <Icon source={"arrow-left"} size={36} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ paddingInline: 16 }}>
                     <View style={styles.userInfoContainer}>
                         <View>
-                            <Avatar.Image size={45} source={{uri: article.user.profile_image}}/>
+                            <Avatar.Image size={45} source={{ uri: article.user.profile_image }} />
                         </View>
-                        <View style={{flexGrow: 2}}>
-                            <Text variant={'titleLarge'} style={{fontWeight: 'bold'}}>{article.user.name}</Text>
+                        <View style={{ flexGrow: 2 }}>
+                            <Text variant={'titleLarge'} style={{ fontWeight: 'bold' }}>{article.user.name}</Text>
                             <Text variant={"bodySmall"}>Posted on {article.readable_publish_date}</Text>
                         </View>
                     </View>
                     <View >
                         <Text variant={"headlineLarge"} style={styles.articleTitle}>{article?.title}</Text>
                         <Text variant={"bodySmall"}>
-                            {article.tag_list.length > 0 && Array.isArray(article.tag_list)? article.tag_list.join(', ') : article.tag_list}
+                            {article.tag_list.length > 0 && Array.isArray(article.tag_list) ? article.tag_list.join(', ') : article.tag_list}
                         </Text>
                     </View>
-                    <Text style={{textAlign: 'right'}}>
+                    <Text style={{ textAlign: 'right' }}>
                         <TouchableOpacity onPress={handleShare} hitSlop={36}>
-                            <Icon source={'share'} size={25}/>
+                            <Icon source={'share'} size={25} />
                         </TouchableOpacity>
                     </Text>
                     <Markdown style={markdownStyles}>
@@ -134,7 +140,7 @@ export default function Article(){
 
 const styles = StyleSheet.create({
 
-    imageContainer:{
+    imageContainer: {
         width: width,
         height: width * 0.42,
         backgroundColor: '#0553',
@@ -145,7 +151,7 @@ const styles = StyleSheet.create({
         height: width * 0.42,
         width: width,
     },
-    userInfoContainer:{
+    userInfoContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -158,12 +164,12 @@ const styles = StyleSheet.create({
     }
 })
 const markdownStyles = {
-        code_inline: {
-            paddingBlock: 0,
-            paddingInline: 4,
-            fontFamily: 'SpaceMono'
-        },
-        code_block: {
-            fontFamily: 'SpaceMono'
-        }
+    code_inline: {
+        paddingBlock: 0,
+        paddingInline: 4,
+        fontFamily: 'SpaceMono'
+    },
+    code_block: {
+        fontFamily: 'SpaceMono'
     }
+}
