@@ -8,11 +8,11 @@ export default function About() {
     <ScrollView style={styles.container}>
       <Card style={styles.card}>
         <Card.Content>
-          <Title style={styles.title}>Dev Community Mobile</Title>
-          <Paragraph style={styles.paragraph}>
+          <Text variant='bodyLarge' style={styles.title}>Dev Community Mobile</Text>
+          <Text variant='bodySmall' style={styles.paragraph}>
             A mobile client for DEV Community (dev.to), designed to bring you the best developer content on the go.
-            Made by <Link href={'https://dshaw0004.netlify.app'} target='_blank'>@dshaw0004</Link>
-          </Paragraph>
+            Made by <Link href={'https://dipankarshaw.web.app'} style={{color: 'blue', fontWeight: 'bold'}} target='_blank'>@dshaw0004</Link>.
+          </Text>
         </Card.Content>
       </Card>
 
