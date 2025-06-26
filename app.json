@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "dev-community",
+    "name": "Dev Community",
     "slug": "dev-community",
-    "version": "0.1.3",
+    "version": "0.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",

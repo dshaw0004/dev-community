@@ -1,23 +1,23 @@
 {
   "name": "dev-community",
   "main": "expo-router/entry",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "build": "eas build -p android --profile preview"
+    "build": "npx -y expo-doctor && eas build -p android --profile preview"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^14.0.2",
-    "@react-navigation/drawer": "^7.5.2",
+    "@expo/vector-icons": "~14.0.4",
+    "@react-navigation/drawer": "^7.1.1",
     "@react-navigation/native": "^7.0.14",
-    "expo": "~52.0.28",
+    "expo": "~52.0.47",
     "expo-font": "~13.0.3",
     "expo-image": "~2.0.4",
     "expo-linking": "~7.0.5",
