@@ -1,4 +1,6 @@
-[Unreleased] - W.I.P.
+[0.3.0] - 2025-06-29
+
+Added:
 
 - A settings page to save preferred tags
 - Option to switch between latest and top posts

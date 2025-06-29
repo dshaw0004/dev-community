@@ -1,7 +1,7 @@
 {
   "name": "dev-community",
   "main": "expo-router/entry",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "~14.0.4",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/drawer": "^7.1.1",
     "@react-navigation/native": "^7.0.14",
     "expo": "~52.0.47",

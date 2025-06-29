@@ -4,9 +4,6 @@ Unofficial android app of [dev.to](https://dev.to).
 
 ![repo banner](./assets/images/banner.png)
 
-## Version
-
-**v0.0.1(beta)**,
 Currently this app is in development.
 You can download the beta version from my [app store](https://appbucket.vercel.app)
 
@@ -40,7 +37,7 @@ You can download the beta version from my [app store](https://appbucket.vercel.a
 
 ## Tech Stack
 
-**Client:** React Native, Expo, React-Native-Paper
+**Client:** React Native, Expo, React-Native-Paper, Zustand
 
 
 
