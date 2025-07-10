@@ -2,11 +2,16 @@
 
 Unofficial android app of [dev.to](https://dev.to).
 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/dshaw0004/dev-community)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/dshaw0004/dev-community/latest/dev)
+![GitHub contributors](https://img.shields.io/github/contributors/dshaw0004/dev-community)
+![GitHub Release Date](https://img.shields.io/github/release-date/dshaw0004/dev-community)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/dshaw0004/dev-community/total)
+![GitHub License](https://img.shields.io/github/license/dshaw0004/dev-community)
+<!-- ![GitHub Forks](https://img.shields.io/github/forks/dshaw0004/dev-community?style=social)
+![GitHub Stars](https://img.shields.io/github/stars/dshaw0004/dev-community?style=plastic) -->
 ![repo banner](./assets/images/banner.png)
 
-## Version
-
-**v0.0.1(beta)**,
 Currently this app is in development.
 You can download the beta version from my [app store](https://appbucket.vercel.app)
 
@@ -40,7 +45,7 @@ You can download the beta version from my [app store](https://appbucket.vercel.a
 
 ## Tech Stack
 
-**Client:** React Native, Expo, React-Native-Paper
+**Client:** React Native, Expo, React-Native-Paper, Zustand
 
 
 
